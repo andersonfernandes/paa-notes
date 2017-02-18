@@ -1,3 +1,11 @@
+/*
+  Missing element of AP <http://www.practice.geeksforgeeks.org/problem-page.php?pid=896>
+
+  The recurrence equation of this algorithm is: T(n) = T(n/2) + 1. The solution of this equation generates a tree of results.
+  The height of the tree represents the maximum number of comparisons made, this height is represented by log of n.
+  So the complexity of this solution is O(log n).
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 
