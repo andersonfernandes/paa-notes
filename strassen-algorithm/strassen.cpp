@@ -5,22 +5,13 @@ using namespace std;
 
 typedef vector< vector<int> > matrix;
 
-/*
-  Receives two 2x2 matrix and applies the strassen algorithm
-*/
-void strassen_base(matrix a, matrix b, matrix &c) {
-  int m1 = (a[0][0] + a[1][1]) * (b[0][0] + b[1][1]);
-  int m2 = b[0][0] * (a[1][0] + a[1][1]);
-  int m3 = a[0][0] * (b[0][1] - b[1][1]);
-  int m4 = a[1][1] * (b[1][0] - b[0][0]);
-  int m5 = b[1][1] * (a[0][0] + a[0][1]);
-  int m6 = (a[1][0] - a[0][0]) * (b[0][0] + b[0][1]);
-  int m7 = (a[0][1] - a[1][1]) * (b[1][0] + b[1][1]);
-
-  c[0][0] = m1 + m4 - m5 + m7;
-  c[0][1] = m3 + m5;
-  c[1][0] = m2 + m4;
-  c[1][1] = m1 - m2 + m3  + m6;
+void print_matrix(matrix m) {
+  for (int i = 0; i < m.size(); ++i) {
+    for (int j = 0; j < m.size(); ++j) {
+      cout << m[i][j] << "  ";
+    }
+    cout << endl;
+  }
 }
 
 void fill_sub(matrix m, matrix &sub, int quadrant) {
@@ -58,15 +49,6 @@ void fill_sub(matrix m, matrix &sub, int quadrant) {
       }
     break;
 
-  }
-}
-
-void print_matrix(matrix m) {
-  for (int i = 0; i < m.size(); ++i) {
-    for (int j = 0; j < m.size(); ++j) {
-      cout << m[i][j] << "  ";
-    }
-    cout << endl;
   }
 }
 
@@ -115,6 +97,21 @@ void join_matrix(matrix &c, matrix c1, matrix c2, matrix c3, matrix c4) {
     }
   }
 
+}
+
+void strassen_base(matrix a, matrix b, matrix &c) {
+  int m1 = (a[0][0] + a[1][1]) * (b[0][0] + b[1][1]);
+  int m2 = b[0][0] * (a[1][0] + a[1][1]);
+  int m3 = a[0][0] * (b[0][1] - b[1][1]);
+  int m4 = a[1][1] * (b[1][0] - b[0][0]);
+  int m5 = b[1][1] * (a[0][0] + a[0][1]);
+  int m6 = (a[1][0] - a[0][0]) * (b[0][0] + b[0][1]);
+  int m7 = (a[0][1] - a[1][1]) * (b[1][0] + b[1][1]);
+
+  c[0][0] = m1 + m4 - m5 + m7;
+  c[0][1] = m3 + m5;
+  c[1][0] = m2 + m4;
+  c[1][1] = m1 - m2 + m3  + m6;
 }
 
 void strassen(matrix &c, matrix a, matrix b) {
@@ -251,30 +248,21 @@ void strassen(matrix &c, matrix a, matrix b) {
 }
 
 int main() {
-  int n = 2;
+  int n, e;
+
+  cin >> n;
+  cin >> e;
 
   matrix a(n, vector<int>(n));
-  matrix b(n, vector<int>(n));
   matrix c(n, vector<int>(n));
 
-  a[0][0] = 1; a[0][1] = 3;
-  a[1][0] = 7; a[1][1] = 5;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      cin >> a[i][j];
+    }
+  }
 
-  b[0][0] = 6; b[0][1] = 8;
-  b[1][0] = 4; b[1][1] = 2;
-
-  // a[0][0] = 1;  a[0][1] = 2;  a[0][2] = 3 ;   a[0][3] = 4;
-  // a[1][0] = 5;  a[1][1] = 6;  a[1][2] = 7 ;   a[1][3] = 8;
-  // a[2][0] = 9;  a[2][1] = 10; a[2][2] = 11 ;  a[2][3] = 12;
-  // a[3][0] = 13; a[3][1] = 14; a[3][2] = 15 ;  a[3][3] = 16;
-
-  // b[0][0] = 1;  b[0][1] = 2;  b[0][2] = 3 ;   b[0][3] = 4;
-  // b[1][0] = 5;  b[1][1] = 6;  b[1][2] = 7 ;   b[1][3] = 8;
-  // b[2][0] = 9;  b[2][1] = 10; b[2][2] = 11 ;  b[2][3] = 12;
-  // b[3][0] = 13; b[3][1] = 14; b[3][2] = 15 ;  b[3][3] = 16;
-
-  strassen(c, a, b);
-
+  strassen(c, a, a);
   print_matrix(c);
 
   return 0;
