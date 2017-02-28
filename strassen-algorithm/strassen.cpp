@@ -8,7 +8,7 @@ typedef vector< vector<int> > matrix;
 void print_matrix(matrix m) {
   for (int i = 0; i < m.size(); ++i) {
     for (int j = 0; j < m.size(); ++j) {
-      cout << m[i][j] << "  ";
+      cout << m[i][j] << " ";
     }
     cout << endl;
   }
@@ -254,7 +254,7 @@ int main() {
   cin >> e;
 
   matrix a(n, vector<int>(n));
-  matrix c(n, vector<int>(n));
+  matrix b(n, vector<int>(n));
 
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
@@ -262,8 +262,15 @@ int main() {
     }
   }
 
-  strassen(c, a, a);
-  print_matrix(c);
+  strassen(b, a, a);
+
+  for (int i = 0; i < (e-2); ++i) {
+    matrix aux(n, vector<int>(n));
+    aux = b;
+    strassen(b, a, aux);
+  }
+
+  print_matrix(b);
 
   return 0;
 }
