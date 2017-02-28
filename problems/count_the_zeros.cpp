@@ -1,9 +1,9 @@
 /*
-  Missing element of AP <http://www.practice.geeksforgeeks.org/problem-page.php?pid=896>
+  Count the Zeros <http://www.practice.geeksforgeeks.org/problem-page.php?pid=897>
 
   Análise: (Desconsiderando os tempos de pre-processamento dos dados na função main)
 
-  O tempo de execução das chamadas recursivas da função find_missing como T(n/2) e o restante da execução como um tempo constante k,
+  O tempo de execução das chamadas recursivas da função zeros_count como T(n/2) e o restante da execução como um tempo constante k,
   temos como equação de recorrência:
           T(n) = T(n/2) + k
 
@@ -25,26 +25,21 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int find_missing(vector<int> a, int diff) {
-  if (a.size() == 1) return a[0] + diff;
+int zeros_count(vector<int> a, int li, int hi) {
+  if (li == hi) return !a[li];
 
-  float mid = a.size() / 2;
-  float left_diff = (a[mid] - a[0]) / mid;
+  if (a[li] == 0) return (hi+1) - li;
 
-  if (left_diff != diff) {
-    vector<int> next_a(a.begin(), a.begin() + mid);
-    return find_missing(next_a, diff);
-  } else {
-    vector<int> next_a(a.begin() + mid, a.end());
-    return find_missing(next_a, diff);
-  }
+  int mid = (li + hi) / 2;
+  if (a[mid] == 0) return ((hi + 1) - (mid)) + zeros_count(a, li, mid-1);
+  else return zeros_count(a, mid+1, hi);
 }
 
 int main() {
   int t;
   cin >> t;
 
-  for (; t > 0; --t) {
+  for(; t > 0; --t) {
     int n;
     cin >> n;
     vector<int> a(n);
@@ -53,10 +48,7 @@ int main() {
       cin >> a[i];
     }
 
-    int diff = (a[n-1] - a[0]) / n;
-
-    int missing = find_missing(a, diff);
-    printf("%d\n", missing);
+    cout << zeros_count(a, 0, a.size()-1) << endl;
   }
 
   return 0;

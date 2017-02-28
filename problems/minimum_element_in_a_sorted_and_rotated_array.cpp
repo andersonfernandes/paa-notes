@@ -1,9 +1,9 @@
 /*
-  Missing element of AP <http://www.practice.geeksforgeeks.org/problem-page.php?pid=896>
+  Minimum element in a sorted and rotated array <http://www.practice.geeksforgeeks.org/problem-page.php?pid=819>
 
   Análise: (Desconsiderando os tempos de pre-processamento dos dados na função main)
 
-  O tempo de execução das chamadas recursivas da função find_missing como T(n/2) e o restante da execução como um tempo constante k,
+  O tempo de execução das chamadas recursivas da função find_min como T(n/2) e o restante da execução como um tempo constante k,
   temos como equação de recorrência:
           T(n) = T(n/2) + k
 
@@ -25,26 +25,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int find_missing(vector<int> a, int diff) {
-  if (a.size() == 1) return a[0] + diff;
+int find_min(vector<int> a, int li, int hi) {
+  if (li == hi) return a[li];
 
-  float mid = a.size() / 2;
-  float left_diff = (a[mid] - a[0]) / mid;
-
-  if (left_diff != diff) {
-    vector<int> next_a(a.begin(), a.begin() + mid);
-    return find_missing(next_a, diff);
-  } else {
-    vector<int> next_a(a.begin() + mid, a.end());
-    return find_missing(next_a, diff);
-  }
+  int mid = (li + hi) / 2;
+  if (a[hi] < a[mid]) return find_min(a, mid+1, hi);
+  else return find_min(a, li, mid);
 }
 
 int main() {
   int t;
   cin >> t;
 
-  for (; t > 0; --t) {
+  for(; t > 0; --t) {
     int n;
     cin >> n;
     vector<int> a(n);
@@ -53,10 +46,7 @@ int main() {
       cin >> a[i];
     }
 
-    int diff = (a[n-1] - a[0]) / n;
-
-    int missing = find_missing(a, diff);
-    printf("%d\n", missing);
+    cout << find_min(a, 0, a.size()-1) << endl;
   }
 
   return 0;
