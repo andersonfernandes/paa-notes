@@ -1,6 +1,6 @@
 /*
-  11733 - Airports https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2833>
-*/
+   11733 - Airports https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2833
+   */
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -47,10 +47,10 @@ int mst(int s, int a) {
 
     if (!taken[u]) {
       if (a <= w) {
-				while (!pq.empty()) pq.pop();
-				break;	
-			} else cost += w;
-      
+        while (!pq.empty()) pq.pop();
+        break;	
+      } else cost += w;
+
       process(u); 
     } 
   }
@@ -80,11 +80,11 @@ int main() {
       if (!taken[j]) {
         cost += mst(j, A) + A;
         ++ap;
-			}
+      }
     }
 
     cout << "Case #" << i << ": " << cost << " " << ap << endl;
   }
 
-	return 0;
+  return 0;
 }
