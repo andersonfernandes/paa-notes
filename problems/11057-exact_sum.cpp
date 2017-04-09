@@ -1,50 +1,5 @@
 /*
   11057 - Exact Sum <https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1998>
-
-  Análise: (Desconsiderando os tempos de pre-processamento dos dados na função main)
-
-  - Função merge_sort: Sejam as chamadas recursivas do merge_sort T(n/2), e a função merge um tempo constante de cn
-    temos a seguinte equação de recorrência:
-            T(n) = 2T(n/2) + cn
-
-    Resolvendo a equação:
-            T(n) = 2(2T(n/4) + cn/2) + cn = 4T(n/4) + 2cn
-            T(n) = 4T(n/8) + cn/4) + 2cn = 8T(n/8) + 3cn
-            T(n) = 2^k . T(n/2^k) + kcn
-
-    Com n = 2^k, temos T(2^k) = T(2^k/2^k) = T(1)
-    Assim: T(n) = 2^k . T(1) + kcn
-    Percebe-se que log n = k (base 2), com n = 2^k
-          T(n) = 2^(log n) . T(1) + cn(log n)
-          T(n) = nc' + nc(log n) (considerando T(1) = c')
-
-    Desconsiderando as constantes temos T(n) = n + n(log n)
-    Como n(log n) é maior que n, temos que o big-oh do merge sort é O(n(log n)).
-
-    Desse modo a equação parcial do tempo de execução do algoritmo é: T(n) = n(log n)
-
-  - Função find_elements: Para essa funçãoo temos os seguintes casos
-        * Pior caso: Quando o while percorre todo o array.
-                     Nesse caso a complexidade é: O(n).
-                     Adicionando isso na equação geral temos:
-                        T(n) = n(log n) + n
-
-                     Logo a complexidade para esse caso é O(n(log n)).
-
-        * Caso médio: Quando o while percorre metade do array.
-                     Nesse caso a complexidade é: O(log n).
-                     Adicionando isso na equação geral temos:
-                        T(n) = n(log n) + log n
-
-                     Logo a complexidade para esse caso é O(n(log n)).
-
-        * Melhor caso: Quando o while é executado apenas um vez.
-                     Nesse caso a complexidade é: O(1).
-                     Adicionando isso na equação geral temos:
-                        T(n) = n(log n) + O(1)
-
-                     Logo a complexidade para esse caso é O(n(log n)).
-
 */
 
 #include <bits/stdc++.h>

@@ -1,30 +1,5 @@
 /*
   10611 - The Playboy Chimp <https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1552>
-
-  Análise:
-  Na função search estão sendo usados as funções lower_bound e upper_bound da biblioteca do C++, segundo a documentação
-  disponível no cplusplus.com, ambas tem tempo de execução O(log n).
-  Desse modo a equação parcial do tempo de execução do algoritmo é: T(n) = 2log n
-  As funções get_smaller e get_taller tem comportamento semelhante, e possuem os seguintes tempos de execução:
-      * Pior caso: Quando o while percorre todo o array.
-                   Nesse caso a complexidade é: O(n).
-                   Adicionando isso na equação geral temos:
-                      T(n) = 2log n + 2n
-
-                   Logo a complexidade para esse caso é O(n).
-      * Caso médio: Quando o while percorre metade do array.
-                    Nesse caso o tempo de execução é T(n/2), então a complexidade é log n
-                    Adicionando isso na equação geral temos:
-                      T(n) = 2log n + 2log n = 4log n
-
-                    Logo a complexidade para esse caso é O(log n).
-
-      * Melhor caso: Quando o while não é executado.
-                     Nesse caso a complexidade é O(1);
-                     Adicionando isso na equação geral temos:
-                      T(n) = 2log n + 2O(1)
-
-                     Logo a complexidade para esse caso é O(log n)
 */
 
 #include <bits/stdc++.h>
