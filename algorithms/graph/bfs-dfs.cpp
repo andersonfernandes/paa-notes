@@ -10,6 +10,7 @@ using namespace std;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 
+int time;
 vvi adj_list;
 vi colors;
 vi distances;
@@ -18,8 +19,11 @@ queue<int> Q;
 
 void init(int v) {
   adj_list.resize(v);
+  colors.clear();
   colors.assign(v, WHITE);
+  distances.clear();
   distances.assign(v, INT_MAX);
+  predecessors.clear();
   predecessors.assign(v, -1);
 }
 
@@ -67,6 +71,35 @@ void bfs(int s) {
 
     colors[u] = BLACK;
     print_bfs_node(u);
+  }
+}
+
+void dfs_visit(int u) {
+  time += 1;
+  distances[u] = time;
+  colors[u] = GRAY;
+
+  for (int i = 0; i < adj_list[u].size(); i++) {
+    v = adj_list[u][i];
+
+    if (colors[v] == WHITE) {
+      predecessors[v] = u;
+      dfs_visit(v);
+    }
+  }
+
+  colors[u] = BLACK;
+  time += 1;
+  // TODO Finish time
+}
+
+void dfs() {
+  time = 0;
+
+  for (int u = 0; u < adj_list.size(); u++) {
+    if (colors[u] == WHITE) {
+      dfs_visit(u);
+    } 
   }
 }
 
